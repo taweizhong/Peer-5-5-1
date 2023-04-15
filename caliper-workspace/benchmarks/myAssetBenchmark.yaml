@@ -1,0 +1,19 @@
+test:
+    name: basic-contract-benchmark # 基准的短名称
+    description: test benchmark #基准的详细说明
+    workers: # 工作器相关的配置的对象
+      number: 5 # 用于执行工作负荷的辅助进程数
+    rounds: # 对象数组，每个对象描述一轮的设置
+      - label: readAsset # 轮的短名称
+        description: Read asset benchmark
+        txNumber: 500
+        rateControl: # 描述要用于轮次的速率控制器的对象
+          type: linear-rate
+          opts:
+            startingTps: 300
+            finishingTps: 350
+        workload: # 描述用于轮次的工作负载模块的对象
+          module: workload/readAsset.js
+          arguments: # 将作为配置传递给工作负载模块的任意对象
+            assets: 50
+            contractId: cc1
